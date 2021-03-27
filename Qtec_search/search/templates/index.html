@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+<style>
+    table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+  }
+  th, td {
+    padding: 15px;
+    text-align: center;
+  }
+  #t02,#t05 {
+    width: 100%;    
+    background-color: #f1f1c1;
+  }
+  #sucb,#sbw,#wcd{
+    background-color: #f1e0c1;
+    padding: 20px;
+  }
+  #btn,#btn1 {
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 8px;
+  padding: 4px;
+  padding-left: 10px;
+  padding-right: 10px;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+    
+</style>
+
+        <script>
+          function getIndicesOf(searchStr, str, caseSensitive) {
+            var searchStrLen = searchStr.length;
+            if (searchStrLen == 0) {
+                return [];
+            }
+            var startIndex = 0, index, indices = [];
+            if (!caseSensitive) {
+                str = str.toLowerCase();
+                searchStr = searchStr.toLowerCase();
+            }
+            while ((index = str.indexOf(searchStr, startIndex)) > -1) {
+                indices.push(index);
+                startIndex = index + searchStrLen;
+            }
+            return indices;
+        }
+
+          function srch_by_w(){
+
+              var input,table,td,tr,filter,txtdata;
+              var input = document.getElementById("sbox");
+              filter = input.value.toUpperCase();
+              table = document.getElementById("t05");
+              tr = table.getElementsByTagName("tr");
+              
+              for(var i = 0;i<tr.length;i++){
+                td=tr[i].getElementsByTagName("td")[2];
+                if(td){              
+                  txtdata = td.innerText;
+                  var txd= txtdata.toUpperCase();
+                  if(txd.includes(filter)){
+                    tr[i].style.display="";
+                  }
+                  else{
+                    tr[i].style.display="none";
+                  }
+                }
+
+              }
+            }
+
+          function getvalues()
+          {
+              var selected = new Array();
+              var selected1 = new Array();
+              var filter = new Array();
+              var filter1 = new Array();
+              var wc = new Array();
+              var wc1 = new Array();
+              var pass = "";
+              var pass1 = "";
+              var whole_history ="" ;
+              var whole_history1 ="" ;
+              var input,table,td,tr,txtdata;
+              var chkbox = document.getElementById("t01");
+              var selchk = document.getElementsByName("word");
+              var selchk1 = document.getElementsByName("ue");
+
+              for(var i=0;i<selchk.length;i++){
+                if(selchk[i].checked){
+                  selected.push(selchk[i].value);
+                }
+              }
+
+              for(var i=0;i<selchk1.length;i++){
+                if(selchk1[i].checked){
+                  selected1.push(selchk1[i].value);
+                }
+              }
+
+              for(var i=0;i<selected.length;i++)
+              {
+                filter[i] = selected[i];
+              }
+              for(var i=0;i<selected1.length;i++)
+              {
+                filter1[i] = selected1[i];
+              }
+
+              table = document.getElementById("t02");
+              tr = table.getElementsByTagName("tr");
+              
+              for(var i = 0;i<tr.length;i++){
+                td=tr[i].getElementsByTagName("td")[2];
+                if(td){              
+                  txtdata = td.innerText;
+                  whole_history = whole_history + " " + txtdata
+                }
+
+              }
+              for(var i = 0;i<tr.length;i++){
+                td=tr[i].getElementsByTagName("td")[0];
+                if(td){              
+                  txtdata = td.innerText;
+                  whole_history1 = whole_history1 + " " + txtdata
+                }
+
+              }
+
+              for(var i =0; i<filter.length;i++){
+              var indices = getIndicesOf(filter[i], whole_history);
+              wc.push(indices.length)
+              }
+              for(var i =0; i<filter1.length;i++){
+              var indices = getIndicesOf(filter1[i], whole_history1);
+              wc1.push(indices.length)
+              }
+
+              for(var i=0;i<filter.length;i++)
+              {
+                pass = pass  + filter[i] + " :"+ wc[i] +"\n";
+              }    
+                document.getElementById("dv").innerHTML = pass;  
+
+              for(var i=0;i<filter1.length;i++)
+              {
+                pass1 = pass1  + filter1[i] + "   :"+ wc1[i] +"  ";
+              }    
+                document.getElementById("ddv").innerHTML = pass1;    
+
+          }
+          
+
+          function search_user()
+          {
+              var selected = new Array();
+              var selected2 = new Array();
+              var selected1 = 99999999999999999999999999999;
+              var filter = new Array();
+              var input,table,td,tr,filter,txtdata;
+              var chkbox = document.getElementById("t01");
+              var selchk = document.getElementsByName("us");
+              var selchk1 = document.getElementsByName("dt");
+              var selchk2 = document.getElementsByName("df");
+
+              for(var i=0;i<selchk.length;i++){
+                if(selchk[i].checked){
+                  selected.push(selchk[i].value);
+                }
+              }
+              for(var i=0;i<selchk1.length;i++){
+                if(selchk1[i].checked){
+                  selected1=(selchk1[i].value);
+                }
+              }
+              for(var i=0;i<selchk2.length;i++){
+                  selected2[i]=(selchk2[i].value);
+              }
+              for(var i=0;i<selected.length;i++)
+              {
+                filter[i] = selected[i].toUpperCase();
+              }
+              table = document.getElementById("t02");
+              tr = table.getElementsByTagName("tr");
+              for(var i = 0;i<tr.length;i++){
+                tr[i].style.display="none";
+              }
+
+              for(var i = 0;i<tr.length;i++){
+                td=tr[i].getElementsByTagName("td")[0];
+                if(td){
+                  
+                  txtdata = td.innerText;
+                  // console.log(filter);
+                  for(var j=0;j<filter.length;j++){
+                    
+                    // console.log(txtdata.toUpperCase())
+                    if(txtdata.toUpperCase() === filter[j] ){                 
+                      tr[i].style.display="";
+                    }                
+                  else{
+                    if(!tr[i].style.display===""){
+                      tr[i].style.display="none";
+                    }
+                    }
+                }
+                }
+
+              }
+
+              
+
+              for(var j=0;j<tr.length;j++){
+
+                if(tr[j].style.display===""){            
+
+                  if( (Date.now() - (Date.parse(tr[j].getElementsByTagName("td")[1].innerText))) > selected1){
+
+
+                    console.log(( Date.now() - (Date.parse(tr[j].getElementsByTagName("td")[1].innerText))) );
+                    tr[j].style.display="none";
+
+                  }
+                }
+              }
+
+              for(var j=0;j<tr.length;j++){
+
+                if(tr[j].style.display===""){     
+                  
+                  if(selected2[0]!="" && selected2[1]!= ""){
+
+                  if((Date.parse(selected2[0]) <= (Date.parse(tr[j].getElementsByTagName("td")[1].innerText) )) &&
+                    (Date.parse(selected2[1]) >= (Date.parse(tr[j].getElementsByTagName("td")[1].innerText) ))  ){
+
+                    tr[j].style.display="";
+                  }
+                  else{
+                    tr[j].style.display="none";
+                  }
+
+                }
+              }
+
+              }
+          }
+
+
+        </script>
+
+        <title>Search Engine</title>
+    </head>
+    <body>
+        <div class="container" style="padding:20px">
+        <div id="sucb">
+          <h1>Search using Checkbox </h1>
+          <br>
+      
+          <table id="t01">
+            <tr> 
+              <input name="us" checked type="checkbox" value="user1"> User1
+              <input name="us" checked type="checkbox" value="user2">user2 
+              <input name="us" checked type="checkbox" value="user3">user3
+              <input name="us" checked type="checkbox" value="user4">user4 
+            </tr>
+            <br> <br>
+            <tr> 
+              <input name="dt"  type="checkbox" value="17200000"> From yesterday
+              <input name="dt"  type="checkbox" value="604800000">From last week 
+              <input name="dt"  type="checkbox" value="2592000000">From last month
+            </tr>
+            <br> <br>
+            <tr> 
+              <label for="birthday">From:  </label>
+              <input type="date" id="birthday" name="df"> 
+              <label for="birthday">to:  </label>
+              <input type="date" id="birthday" name="df"> 
+            </tr>
+      
+          </table>
+          <br>
+      
+          
+          <input id = 'btn' type="button" value="Submit" onclick="search_user()">
+      
+          <br>
+      
+          <br>
+          
+      
+          <table id="t02">
+            <tr>
+              <th>UserName</th>
+              <th>Date</th>
+              <th>Text</th> 
+            </tr>
+            {% for data in result %}
+            <tr>
+              <td>{{ data.Username }}</td>
+              <td>{{ data.Date }}</td>
+              <td>{{ data.Text }}</td>
+            </tr>
+            {%endfor%}
+          </table>
+      
+          <br>
+        </div>
+        <br>
+        <div id="wcd">
+      
+          <h1>Word Count </h1>
+          <br>
+      
+          <table id="t03">
+            <tr>
+              <input name="word" checked type="checkbox" value="How"> How
+              <input name="word" checked type="checkbox" value="to">to 
+              <input name="word" checked type="checkbox" value="home">home
+              <input name="word" checked type="checkbox" value="wash">wash 
+            </tr>
+            <br><br>
+            <h1>Number of entry by users</h1>
+            <tr> 
+              <input name="ue" checked type="checkbox" value="user1"> User1
+              <input name="ue" checked type="checkbox" value="user2">user2 
+              <input name="ue" checked type="checkbox" value="user3">user3
+              <input name="ue" checked type="checkbox" value="user4">user4 
+            </tr>
+          </table>
+          <br>
+          <input id = 'btn1' type="button" value="Submit" onclick="getvalues()">
+          <br>
+          <br>
+          <b id="dv"></b>
+          <br><br>
+          <b id="ddv"></b>
+      
+          <br>
+
+
+        </div>
+        <br>
+        <div id="sbw">
+          <h1>Search by Word </h1>
+          <br>
+          <input  type="text" id="sbox" placeholder="search by word" onkeyup="srch_by_w()">
+          <br>
+          <br>
+          <table id="t05">
+            <tr>
+              <th>UserName</th>
+              <th>Date</th>
+              <th>Text</th> 
+            </tr>
+            {% for data in result %}
+            <tr>
+              <td>{{ data.Username }}</td>
+              <td>{{ data.Date }}</td>
+              <td>{{ data.Text }}</td>
+            </tr>
+            {%endfor%}
+          </table>    
+        </div>
+      
+        </div>    
+        
+      </body>
+</html>

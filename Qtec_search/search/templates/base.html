@@ -1,0 +1,114 @@
+{% load static % }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>   Search Engine  </title>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    <link rel="stylesheet"  href="{ % static 'base.css'%}"/>
+    <script rel="js"  href="{ % static 'base.js'%}"></script>
+    
+</head>
+
+<body>
+  <div class="container" style="padding:20px">
+  <div id="sucb">
+    <h1>Search using Checkbox </h1>
+    <br>
+
+    <table id="t01">
+      <tr> 
+        <input name="us" checked type="checkbox" value="user1"> User1
+        <input name="us" checked type="checkbox" value="user2">user2 
+        <input name="us" checked type="checkbox" value="user3">user3
+        <input name="us" checked type="checkbox" value="user4">user4 
+      </tr>
+      <br> <br>
+      <tr> 
+        <input name="dt"  type="checkbox" value="17200000"> From yesterday
+        <input name="dt"  type="checkbox" value="604800000">From last week 
+        <input name="dt"  type="checkbox" value="2592000000">From last month
+      </tr>
+      <br> <br>
+      <tr> 
+        <label for="birthday">From:  </label>
+        <input type="date" id="birthday" name="df"> 
+        <label for="birthday">to:  </label>
+        <input type="date" id="birthday" name="df"> 
+      </tr>
+
+    </table>
+    <br>
+
+    
+    <input id = 'btn' type="button" value="Submit" onclick="search_user()">
+
+    <br>
+
+    <br>
+    
+
+    <table id="t02">
+      <tr>
+        <th>UserName</th>
+        <th>Date</th>
+        <th>Text</th> 
+      </tr>
+      {% for data in result %}
+      <tr>
+        <td>{{ data.Username }}</td>
+        <td>{{ data.Date }}</td>
+        <td>{{ data.Text }}</td>
+      </tr>
+      {%endfor%}
+    </table>
+
+    <br>
+  </div>
+  <br>
+  <div id="wcd">
+
+    <h1>Word Count </h1>
+    <br>
+
+    <table id="t03">
+      <tr>
+        <input name="word" checked type="checkbox" value="How"> How
+        <input name="word" checked type="checkbox" value="to">to 
+        <input name="word" checked type="checkbox" value="home">home
+        <input name="word" checked type="checkbox" value="wash">wash 
+      </tr>
+    </table>
+    <br>
+    <input id = 'btn1' type="button" value="Submit" onclick="getvalues()">
+    <br>
+    <b id="dv"></b>
+
+    <br>
+  </div>
+  <br>
+  <div id="sbw">
+    <h1>Search by Word </h1>
+    <br>
+    <input  type="text" id="sbox" placeholder="search by word" onkeyup="srch_by_w()">
+    <br>
+    <br>
+    <table id="t05">
+      <tr>
+        <th>UserName</th>
+        <th>Date</th>
+        <th>Text</th> 
+      </tr>
+      {% for data in result %}
+      <tr>
+        <td>{{ data.Username }}</td>
+        <td>{{ data.Date }}</td>
+        <td>{{ data.Text }}</td>
+      </tr>
+      {%endfor%}
+    </table>    
+  </div>
+
+  </div>    
+  
+</body>
